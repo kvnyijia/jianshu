@@ -45,6 +45,20 @@ export const NavItem = styled.div`
   }
 `
 
+export const SearchWrapper = styled.div`
+  position: relative;
+  float: left;
+  .search_icon {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 15px;
+    padding: 8px;
+  }
+`;
+
 export const NavSearch = styled.input.attrs({
   placeholder: 'search'
 })`
