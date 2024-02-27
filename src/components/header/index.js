@@ -1,63 +1,67 @@
+import React, { useRef } from "react";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Component } from "react";
+import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { Addition, HeaderStyle, Logo, Nav, NavButton, NavItem, NavSearch, SearchWrapper } from "./style";
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      focused: false
-    }
-    this.handleInputFoucs = this.handleInputFoucs.bind(this)
-    this.handleInputBlur = this.handleInputBlur.bind(this)
-  }
+const Header = (props) => {
+  const node_ref = useRef(null);
 
-  render() {
-    return (
-      <HeaderStyle>
-        <Logo/>
-        <Nav>
-          <NavItem className="left active">Home</NavItem>
-          <NavItem className="left">Download App</NavItem>
-          <NavItem className="right">Login</NavItem>
-          <NavItem className="right">Aa</NavItem>
+  return (
+    <HeaderStyle>
+      <Logo/>
+      <Nav>
+        <NavItem className="left active">Home</NavItem>
+        <NavItem className="left">Download App</NavItem>
+        <NavItem className="right">Login</NavItem>
+        <NavItem className="right">Aa</NavItem>
 
-          <SearchWrapper>
-            <CSSTransition
-              in={this.state.focused}
-              timeout={200}
-              classNames="slide"
-            >
-              <NavSearch
-                className={this.state.focused ? 'focused' : ''}
-                onFocus={this.handleInputFoucs}
-                onBlur={this.handleInputBlur}
-              />
-            </CSSTransition>
-            <FontAwesomeIcon className={this.state.focused ? 'focused search_icon' : 'search_icon'} icon={faMagnifyingGlass} />
-          </SearchWrapper>
-        </Nav>
-        <Addition>
-          <NavButton className="writing">Writing</NavButton>
-          <NavButton className="register">Register</NavButton>
-        </Addition>
-      </HeaderStyle>
-    )
-  }
+        <SearchWrapper>
+          <CSSTransition
+            in={props.focused}
+            timeout={200}
+            classNames="slide"
+            nodeRef={node_ref}
+          >
+            <NavSearch
+              className={props.focused ? 'focused' : ''}
+              onFocus={props.handleInputFoucs}
+              onBlur={props.handleInputBlur}
+            />
+          </CSSTransition>
+          <FontAwesomeIcon className={props.focused ? 'focused search_icon' : 'search_icon'} icon={faMagnifyingGlass} />
+        </SearchWrapper>
+      </Nav>
+      <Addition>
+        <NavButton className="writing">Writing</NavButton>
+        <NavButton className="register">Register</NavButton>
+      </Addition>
+    </HeaderStyle>
+  );
+}
 
-  handleInputFoucs() {
-    this.setState({
-      focused: true
-    })
-  }
-
-  handleInputBlur() {
-    this.setState({
-      focused: false
-    })
+const mapStateToProps = (state) => {
+  return {
+    focused: state.focused
   }
 }
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleInputFoucs() {
+      const action = {
+        type: 'search_focus'
+      };
+      dispatch(action);
+    }, 
+    handleInputBlur() {
+      const action = {
+        type: 'search_blur'
+      };
+      dispatch(action);
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
