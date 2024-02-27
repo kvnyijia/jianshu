@@ -1,7 +1,8 @@
 import { fromJS } from "immutable";
 
 export const defaultState = fromJS({
-  focused: false
+  focused: false,
+  list: [],
 });
 
 export const reducer = (state=defaultState, action) => {
@@ -14,6 +15,9 @@ export const reducer = (state=defaultState, action) => {
     return state.set(
       'focused', false
     );
+  }
+  if (action.type === 'change_list') {
+    return state.set('list', action.data);
   }
   return state;
 };

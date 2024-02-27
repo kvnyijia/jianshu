@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { Addition, HeaderStyle, Logo, Nav, NavButton, NavItem, NavSearch, SearchInfo, SearchInfoItem, SearchInfoList, SearchInfoSwitch, SearchInfoTitle, SearchWrapper } from "./style";
+import { get_searchList, search_blur, search_focus } from "./action/action";
 
-const getSearchInfo = (show) => {
+const getSearchInfo = (show, list) => {
   return show ? (
     <SearchInfo>
       <SearchInfoTitle>
@@ -13,12 +14,9 @@ const getSearchInfo = (show) => {
         <SearchInfoSwitch>Shuffle</SearchInfoSwitch>
       </SearchInfoTitle>
       <SearchInfoList>
-        <SearchInfoItem>Travel</SearchInfoItem>
-        <SearchInfoItem>Travel</SearchInfoItem>
-        <SearchInfoItem>Travel</SearchInfoItem>
-        <SearchInfoItem>Travel</SearchInfoItem>
-        <SearchInfoItem>Travel</SearchInfoItem>
-        <SearchInfoItem>Travel</SearchInfoItem>
+        {list.map((data, idx) => (
+          <SearchInfoItem key={idx}>{data}</SearchInfoItem>
+        ))}
       </SearchInfoList>
     </SearchInfo>
   ) : null;
@@ -51,7 +49,7 @@ const Header = (props) => {
             />
           </CSSTransition>
           <FontAwesomeIcon className={props.focused ? 'focused search_icon' : 'search_icon'} icon={faMagnifyingGlass} />
-          { getSearchInfo(props.focused) }
+          { getSearchInfo(props.focused, props.list) }
         </SearchWrapper>
       </Nav>
       <Addition>
@@ -64,23 +62,19 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.get('header').get('focused')
+    focused: state.get('header').get('focused'),
+    list: state.getIn(['header', 'list']),
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     handleInputFoucs() {
-      const action = {
-        type: 'search_focus'
-      };
-      dispatch(action);
+      dispatch(get_searchList());
+      dispatch(search_focus());
     }, 
     handleInputBlur() {
-      const action = {
-        type: 'search_blur'
-      };
-      dispatch(action);
+      dispatch(search_blur());
     }
   }
 }
