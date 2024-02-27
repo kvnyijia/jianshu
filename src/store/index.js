@@ -3,5 +3,6 @@ import reducer from "./reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = configureStore({reducer}, composeEnhancers());
+// const store = configureStore({reducer});
 
 export default store;
