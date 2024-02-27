@@ -28,6 +28,7 @@ const Header = (props) => {
               className={props.focused ? 'focused' : ''}
               onFocus={props.handleInputFoucs}
               onBlur={props.handleInputBlur}
+              ref={node_ref}
             />
           </CSSTransition>
           <FontAwesomeIcon className={props.focused ? 'focused search_icon' : 'search_icon'} icon={faMagnifyingGlass} />
