@@ -3,7 +3,26 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
-import { Addition, HeaderStyle, Logo, Nav, NavButton, NavItem, NavSearch, SearchWrapper } from "./style";
+import { Addition, HeaderStyle, Logo, Nav, NavButton, NavItem, NavSearch, SearchInfo, SearchInfoItem, SearchInfoList, SearchInfoSwitch, SearchInfoTitle, SearchWrapper } from "./style";
+
+const getSearchInfo = (show) => {
+  return show ? (
+    <SearchInfo>
+      <SearchInfoTitle>
+        Popular
+        <SearchInfoSwitch>Shuffle</SearchInfoSwitch>
+      </SearchInfoTitle>
+      <SearchInfoList>
+        <SearchInfoItem>Travel</SearchInfoItem>
+        <SearchInfoItem>Travel</SearchInfoItem>
+        <SearchInfoItem>Travel</SearchInfoItem>
+        <SearchInfoItem>Travel</SearchInfoItem>
+        <SearchInfoItem>Travel</SearchInfoItem>
+        <SearchInfoItem>Travel</SearchInfoItem>
+      </SearchInfoList>
+    </SearchInfo>
+  ) : null;
+};
 
 const Header = (props) => {
   const node_ref = useRef(null);
@@ -32,6 +51,7 @@ const Header = (props) => {
             />
           </CSSTransition>
           <FontAwesomeIcon className={props.focused ? 'focused search_icon' : 'search_icon'} icon={faMagnifyingGlass} />
+          { getSearchInfo(props.focused) }
         </SearchWrapper>
       </Nav>
       <Addition>
