@@ -60,7 +60,7 @@ const Header = (props) => {
           >
             <NavSearch
               className={props.focused ? 'focused' : ''}
-              onFocus={props.handleInputFoucs}
+              onFocus={() => { props.handleInputFoucs(props.list); }}
               onBlur={props.handleInputBlur}
               ref={node_ref}
             />
@@ -89,8 +89,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleInputFoucs() {
-      dispatch(get_searchList());
+    handleInputFoucs(list) {
+      if (list.size === 0) {
+        dispatch(get_searchList());
+      }
       dispatch(search_focus());
     }, 
     handleInputBlur() {
