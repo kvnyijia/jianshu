@@ -1,8 +1,10 @@
 import React from "react";
+import { WriterWrapper } from '../style';
+
 
 function Writer() {
   return (
-    <div>Detail</div>
+    <WriterWrapper>Detail</WriterWrapper>
   );
 }
 

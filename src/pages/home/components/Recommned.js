@@ -1,9 +1,23 @@
 import React from "react";
+import { connect } from "react-redux";
+import { RecommendWrapper, RecommendItem } from '../style';
 
-function Recommend() {
+function Recommend(props) {
   return (
-    <div>Detail</div>
+    <RecommendWrapper>
+      {props.recommendList.map((item, idx) => (
+        <RecommendItem key={item.get('id')} imgUrl={item.get('imgUrl')}/>
+      ))}
+    </RecommendWrapper>
   );
 }
 
-export default Recommend;
+const mapStateToProps = (state) => {
+  return {
+    recommendList: state.getIn(['home','recommendList']),
+  }
+}
+
+const mapDispatchToProps = null; //(dispatch) => {
+
+export default connect(mapStateToProps, mapDispatchToProps)(Recommend);

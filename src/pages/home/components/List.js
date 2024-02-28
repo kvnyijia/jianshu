@@ -7,7 +7,7 @@ function List(props) {
     <div>
       {props.articleList.map((item, idx) => (
         <ListItem key={item.get('id')}>
-          <img className="listItem_pic" src={item.get('imgUrl')}/>
+          <img alt="" className="listItem_pic" src={item.get('imgUrl')}/>
           <ListInfo>
             <h3 className="listTitle">{item.get('title')}</h3>
             <p className="listDesc">{item.get('desc')}</p>
