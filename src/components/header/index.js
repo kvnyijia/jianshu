@@ -4,19 +4,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { Addition, HeaderStyle, Logo, Nav, NavButton, NavItem, NavSearch, SearchInfo, SearchInfoItem, SearchInfoList, SearchInfoSwitch, SearchInfoTitle, SearchWrapper } from "./style";
-import { get_searchList, search_blur, search_focus } from "./action/action";
+import { change_page, get_searchList, mouse_enter, mouse_leave, search_blur, search_focus } from "./action/action";
 
-const getSearchInfo = (show, list) => {
-  return show ? (
-    <SearchInfo>
+const getSearchInfo = (props) => {
+  const list = [];
+  const jsList = props.list.toJS();
+  for (let i = props.page*10; i < (props.page+1)*10; ++i) {
+    if (jsList[i] != null) {
+      list.push(<SearchInfoItem key={jsList[i]}>{jsList[i]}</SearchInfoItem>);
+    }
+  }
+
+  return props.focused || props.mouseIn ? (
+    <SearchInfo
+      onMouseEnter={props.handleMouseEnter}
+      onMouseLeave={props.handleMouseLeave}
+    >
       <SearchInfoTitle>
         Popular
-        <SearchInfoSwitch>Shuffle</SearchInfoSwitch>
+        <SearchInfoSwitch onClick={() => { props.handleInfoSwitch(props.page, props.totalPage); }}>Shuffle</SearchInfoSwitch>
       </SearchInfoTitle>
       <SearchInfoList>
-        {list.map((data, idx) => (
-          <SearchInfoItem key={idx}>{data}</SearchInfoItem>
-        ))}
+        {list}
       </SearchInfoList>
     </SearchInfo>
   ) : null;
@@ -49,7 +58,7 @@ const Header = (props) => {
             />
           </CSSTransition>
           <FontAwesomeIcon className={props.focused ? 'focused search_icon' : 'search_icon'} icon={faMagnifyingGlass} />
-          { getSearchInfo(props.focused, props.list) }
+          { getSearchInfo(props) }
         </SearchWrapper>
       </Nav>
       <Addition>
@@ -64,6 +73,9 @@ const mapStateToProps = (state) => {
   return {
     focused: state.get('header').get('focused'),
     list: state.getIn(['header', 'list']),
+    page: state.getIn(['header', 'page']),
+    totalPage: state.getIn(['header', 'totalPage']),
+    mouseIn: state.getIn(['header', 'mouseIn']),
   }
 }
 
@@ -75,6 +87,15 @@ const mapDispatchToProps = (dispatch) => {
     }, 
     handleInputBlur() {
       dispatch(search_blur());
+    },
+    handleMouseEnter() {
+      dispatch(mouse_enter());
+    },
+    handleMouseLeave() {
+      dispatch(mouse_leave());
+    },
+    handleInfoSwitch(page, totalPage) {
+      dispatch(change_page((page+1) % totalPage));
     }
   }
 }
