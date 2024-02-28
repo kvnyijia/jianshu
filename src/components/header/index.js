@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import React, { useRef, useState } from "react";
+import { faMagnifyingGlass, faRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { Addition, HeaderStyle, Logo, Nav, NavButton, NavItem, NavSearch, SearchInfo, SearchInfoItem, SearchInfoList, SearchInfoSwitch, SearchInfoTitle, SearchWrapper } from "./style";
 import { change_page, get_searchList, mouse_enter, mouse_leave, search_blur, search_focus } from "./action/action";
 
-const getSearchInfo = (props) => {
+const GetSearchInfo = (props) => {
   const list = [];
   const jsList = props.list.toJS();
   for (let i = props.page*10; i < (props.page+1)*10; ++i) {
@@ -14,6 +14,7 @@ const getSearchInfo = (props) => {
       list.push(<SearchInfoItem key={jsList[i]}>{jsList[i]}</SearchInfoItem>);
     }
   }
+  const [rotate_icon, setRotate_icon] = useState();
 
   return props.focused || props.mouseIn ? (
     <SearchInfo
@@ -22,7 +23,14 @@ const getSearchInfo = (props) => {
     >
       <SearchInfoTitle>
         Popular
-        <SearchInfoSwitch onClick={() => { props.handleInfoSwitch(props.page, props.totalPage); }}>Shuffle</SearchInfoSwitch>
+        <SearchInfoSwitch onClick={() => { props.handleInfoSwitch(props.page, props.totalPage, rotate_icon); }}>
+          <FontAwesomeIcon 
+            className="rotate_icon" 
+            icon={faRotate}
+            ref={setRotate_icon}
+          />
+          Shuffle
+        </SearchInfoSwitch>
       </SearchInfoTitle>
       <SearchInfoList>
         {list}
@@ -58,7 +66,7 @@ const Header = (props) => {
             />
           </CSSTransition>
           <FontAwesomeIcon className={props.focused ? 'focused search_icon' : 'search_icon'} icon={faMagnifyingGlass} />
-          { getSearchInfo(props) }
+          { GetSearchInfo(props) }
         </SearchWrapper>
       </Nav>
       <Addition>
@@ -94,7 +102,10 @@ const mapDispatchToProps = (dispatch) => {
     handleMouseLeave() {
       dispatch(mouse_leave());
     },
-    handleInfoSwitch(page, totalPage) {
+    handleInfoSwitch(page, totalPage, rotate_icon) {
+      let angle = rotate_icon.style.transform.replace(/[^0-9]/ig, '');
+      angle = angle !== '' ? parseInt(angle, 10) : 0;
+      rotate_icon.style.transform = `rotate(${angle + 360}deg)`;
       dispatch(change_page((page+1) % totalPage));
     }
   }

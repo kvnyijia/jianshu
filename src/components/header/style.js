@@ -61,6 +61,13 @@ export const SearchWrapper = styled.div`
       color: #fff;
     }
   }
+  .rotate_icon {
+    // display: block;
+    // float: left;
+    margin-right: 5px;
+    transition: all .2s ease-in;
+    // transform-orgin: center center;
+  }
 `;
 
 export const NavSearch = styled.input.attrs({
