@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { Addition, HeaderStyle, Logo, Nav, NavButton, NavItem, NavSearch, SearchInfo, SearchInfoItem, SearchInfoList, SearchInfoSwitch, SearchInfoTitle, SearchWrapper } from "./style";
-import { change_page, get_searchList, mouse_enter, mouse_leave, search_blur, search_focus } from "./action/action";
+import { change_page, get_searchList, mouse_enter, mouse_leave, search_blur, search_focus } from "./store";
 
 const GetSearchInfo = (props) => {
   const list = [];
