@@ -1,9 +1,30 @@
 import React from "react";
+import { connect } from "react-redux";
+import { TopicWrapper, TopicItem } from "../style";
 
-function Topic() {
+function Topic(props) {
   return (
-    <div>Detail</div>
+    <TopicWrapper>
+      {props.topicList.map((item, idx) => (
+        <TopicItem key={idx}>
+          <img 
+            className="topicItem_pic"
+            src={item.get('imgUrl')}
+            alt=""
+          />
+          {item.get('title')}
+        </TopicItem>
+      ))}
+    </TopicWrapper>
   );
 }
 
-export default Topic;
+const mapStateToProps = (state) => {
+  return {
+    topicList: state.getIn(['home','topicList']),
+  }
+}
+
+const mapDispatchToProps = null; //(dispatch) => {
+
+export default connect(mapStateToProps, mapDispatchToProps)(Topic);
