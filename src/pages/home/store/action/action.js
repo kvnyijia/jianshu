@@ -17,14 +17,14 @@ export const getHomeData = () => {
   };
 };
 
-export const getMoreList = () => {
+export const getMoreList = (page) => {
   return (dispatch) => {
-    // console.log('c')
-    axios.get('/api/homeList.json').then((res) => {
+    axios.get(`/api/homeList.json?page=${page}`).then((res) => {
       const data = res.data;
       const action = {
         type: add_more_articles,
         list: fromJS(data.articleList),
+        nextPage: page+1,
       };
       dispatch(action);
     })

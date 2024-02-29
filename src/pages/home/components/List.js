@@ -16,7 +16,7 @@ function List(props) {
         </ListItem>
       ))}
       <LoadMoreButton
-        onClick={props.handleLoadMore}
+        onClick={() => props.handleLoadMore(props.articlePage)}
       >
         Load more
       </LoadMoreButton>
@@ -27,12 +27,13 @@ function List(props) {
 const mapStateToProps = (state) => {
   return {
     articleList: state.getIn(['home','articleList']),
+    articlePage: state.getIn(['home', 'articlePage']),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  handleLoadMore() {
-    dispatch(getMoreList());
+  handleLoadMore(page) {
+    dispatch(getMoreList(page));
   }
 });
 

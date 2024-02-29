@@ -5,6 +5,7 @@ export const defaultState = fromJS({
   topicList: [],
   articleList: [],
   recommendList: [],
+  articlePage: 1,
 });
 
 export const reducer = (state=defaultState, action) => {
@@ -16,7 +17,10 @@ export const reducer = (state=defaultState, action) => {
         recommendList: fromJS(action.recommendList),
       })
     case add_more_articles: 
-      return state.set('articleList', state.get('articleList').concat(action.list))
+      return state.merge({
+        articleList: state.get('articleList').concat(action.list),
+        articlePage: action.nextPage,
+      });
     default:
       return state;
   }
