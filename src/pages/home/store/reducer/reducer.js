@@ -1,5 +1,5 @@
 import { fromJS } from "immutable";
-import { change_home_data } from "../";
+import { change_home_data, add_more_articles } from "../";
 
 export const defaultState = fromJS({
   topicList: [],
@@ -15,6 +15,8 @@ export const reducer = (state=defaultState, action) => {
         articleList: fromJS(action.articleList),
         recommendList: fromJS(action.recommendList),
       })
+    case add_more_articles: 
+      return state.set('articleList', state.get('articleList').concat(action.list))
     default:
       return state;
   }

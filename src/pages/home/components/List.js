@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ListInfo, ListItem } from '../style';
+import { getMoreList } from "../store";
+import { ListInfo, ListItem, LoadMoreButton } from '../style';
 
 function List(props) {
   return (
     <div>
       {props.articleList.map((item, idx) => (
-        <ListItem key={item.get('id')}>
+        <ListItem key={idx}>
           <img alt="" className="listItem_pic" src={item.get('imgUrl')}/>
           <ListInfo>
             <h3 className="listTitle">{item.get('title')}</h3>
@@ -14,6 +15,11 @@ function List(props) {
           </ListInfo>
         </ListItem>
       ))}
+      <LoadMoreButton
+        onClick={props.handleLoadMore}
+      >
+        Load more
+      </LoadMoreButton>
     </div>
   );
 }
@@ -24,6 +30,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = null; //(dispatch) => {
+const mapDispatchToProps = (dispatch) => ({
+  handleLoadMore() {
+    dispatch(getMoreList());
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
