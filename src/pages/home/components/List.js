@@ -8,7 +8,7 @@ function List(props) {
   return (
     <div>
       {props.articleList.map((item, idx) => (
-        <Link key={idx} to="/detail">
+        <Link key={idx} to={`/detail/${item.get('id')}`}>
           <ListItem key={idx}>
             <img alt="" className="listItem_pic" src={item.get('imgUrl')}/>
             <ListInfo>

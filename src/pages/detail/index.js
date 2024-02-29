@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 import { getDetail } from "./store";
 import { Content, DetailWrapper, Header } from "./style";
 
-function Detail(props) {
+const Detail = (props) => {
+  const { id } = useParams();
   useEffect(() => {
-    props.handleDetail();
-  }, [props]);
+    props.handleDetail(id);
+  }, [props, id]);
 
   return (
     <DetailWrapper>
@@ -22,8 +24,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleDetail() {
-    dispatch(getDetail());
+  handleDetail(id) {
+    dispatch(getDetail(id));
   }
 });
 
