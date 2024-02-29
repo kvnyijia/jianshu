@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import List from "./components/List";
 import Recommend from "./components/Recommned";
@@ -7,7 +7,7 @@ import Writer from "./components/Writer";
 import { change_showScrollToTop, getHomeData } from "./store";
 import { BackToTop, HomeLeft, HomeRight, HomeWrapper } from "./style";
 
-class Home extends Component {
+class Home extends PureComponent {
   render() {
     return (
       <HomeWrapper>

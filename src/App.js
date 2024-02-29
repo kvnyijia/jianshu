@@ -10,8 +10,8 @@ function App() {
     <Provider
       store={store}
     > 
-      <Header/>
       <BrowserRouter>
+        <Header/>
         <Routes>
           <Route path="/"  element={<Home/>}/>
           <Route path="/detail"  element={<Detail/>}/>

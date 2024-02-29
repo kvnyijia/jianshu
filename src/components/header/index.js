@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { Addition, HeaderStyle, Logo, Nav, NavButton, NavItem, NavSearch, SearchInfo, SearchInfoItem, SearchInfoList, SearchInfoSwitch, SearchInfoTitle, SearchWrapper } from "./style";
 import { change_page, get_searchList, mouse_enter, mouse_leave, search_blur, search_focus } from "./store";
+import { Link } from "react-router-dom";
 
 const GetSearchInfo = (props) => {
   const list = [];
@@ -44,7 +45,9 @@ const Header = (props) => {
 
   return (
     <HeaderStyle>
-      <Logo/>
+      <Link to="/">
+        <Logo/>
+      </Link>
       <Nav>
         <NavItem className="left active">Home</NavItem>
         <NavItem className="left">Download App</NavItem>
