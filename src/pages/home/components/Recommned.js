@@ -6,7 +6,7 @@ function Recommend(props) {
   return (
     <RecommendWrapper>
       {props.recommendList.map((item, idx) => (
-        <RecommendItem key={item.get('id')} imgUrl={item.get('imgUrl')}/>
+        <RecommendItem key={item.get('id')} $imgUrl={item.get('imgUrl')}/>
       ))}
     </RecommendWrapper>
   );
