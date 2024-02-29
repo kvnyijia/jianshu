@@ -109,3 +109,18 @@ export const LoadMoreButton = styled.div`
   border-radius: 20px;
   cursor: pointer;
 `;
+
+export const BackToTop = styled.div`
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  width: 40px;
+  height: 40px;
+  line-height: 60px;
+  text-align: center;
+  // background: #a5a5a5;
+  // color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer; 
+`;

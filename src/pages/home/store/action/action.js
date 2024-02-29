@@ -1,6 +1,6 @@
 import axios from "axios";
 import { fromJS } from "immutable";
-import { change_home_data, add_more_articles } from "../";
+import { change_home_data, add_more_articles, toggle_showScrollToTop } from "../";
 
 export const getHomeData = () => {
   return (dispatch) => {
@@ -30,3 +30,8 @@ export const getMoreList = (page) => {
     })
   };
 };
+
+export const change_showScrollToTop = (show) => ({
+  type: toggle_showScrollToTop,
+  show,
+});
