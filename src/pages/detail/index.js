@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { getDetail } from "./store";
 import { Content, DetailWrapper, Header } from "./style";
 
 function Detail(props) {
+  useEffect(() => {
+    props.handleDetail();
+  }, [props]);
+
   return (
     <DetailWrapper>
       <Header>{props.title}</Header>      
@@ -16,6 +21,10 @@ const mapStateToProps = (state) => ({
   content: state.getIn(['detail', 'content']),
 });
 
-const mapDispatchToProps = null; // (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  handleDetail() {
+    dispatch(getDetail());
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Detail);

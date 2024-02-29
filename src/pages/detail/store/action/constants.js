@@ -1,0 +1,1 @@
+export const change_detail_data = 'detail/change_detail_data';

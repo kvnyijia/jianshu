@@ -1,14 +1,18 @@
 import { fromJS } from "immutable";
-import { change_home_data, add_more_articles, toggle_showScrollToTop } from "../";
+import { change_detail_data } from "../";
 
 export const defaultState = fromJS({
-  title: 'title',
-  content: "content",
+  title: '',
+  content: '',
 });
 
 export const reducer = (state=defaultState, action) => {
   switch (action.type) {
-
+    case change_detail_data:
+      return state.merge({
+        title: action.title,
+        content: action.content,
+      })
     default:
       return state;
   }
