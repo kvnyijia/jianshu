@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import List from "./components/List";
 import Recommend from "./components/Recommned";
 import Topic from "./components/Topic";
 import Writer from "./components/Writer";
+import { getHomeData } from "./store";
 import { HomeLeft, HomeRight, HomeWrapper } from "./style";
 
 class Home extends Component {
@@ -25,16 +25,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/home.json').then((res) => {
-      const data = res.data;
-      const action = {
-        type: 'change_home_data',
-        topicList: data.topicList,
-        articleList: data.articleList, 
-        recommendList: data.recommendList,
-      };
-      this.props.handleHomeData(action);
-    })
+    this.props.handleHomeData();
   }
 }
 
@@ -46,8 +37,8 @@ const mapStateToProps = null;
 // }
 
 const mapDispatchToProps = (dispatch) => ({
-  handleHomeData(action) {
-    dispatch(action);
+  handleHomeData() {
+    dispatch(getHomeData());
   }
 });
 

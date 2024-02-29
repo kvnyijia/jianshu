@@ -1,4 +1,5 @@
 import { fromJS } from "immutable";
+import { change_home_data } from "../";
 
 export const defaultState = fromJS({
   topicList: [],
@@ -8,7 +9,7 @@ export const defaultState = fromJS({
 
 export const reducer = (state=defaultState, action) => {
   switch (action.type) {
-    case 'change_home_data':
+    case change_home_data:
       return state.merge({
         topicList: fromJS(action.topicList),
         articleList: fromJS(action.articleList),
