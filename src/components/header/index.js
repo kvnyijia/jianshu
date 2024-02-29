@@ -6,6 +6,7 @@ import { CSSTransition } from "react-transition-group";
 import { Addition, HeaderStyle, Logo, Nav, NavButton, NavItem, NavSearch, SearchInfo, SearchInfoItem, SearchInfoList, SearchInfoSwitch, SearchInfoTitle, SearchWrapper } from "./style";
 import { change_page, get_searchList, mouse_enter, mouse_leave, search_blur, search_focus } from "./store";
 import { Link } from "react-router-dom";
+import { logout } from "../../pages/login/store/";
 
 const GetSearchInfo = (props) => {
   const list = [];
@@ -51,7 +52,13 @@ const Header = (props) => {
       <Nav>
         <NavItem className="left active">Home</NavItem>
         <NavItem className="left">Download App</NavItem>
-        <NavItem className="right">Login</NavItem>
+        {props.login ? 
+          <NavItem className="right" onClick={props.handleLogout}>Logout</NavItem>
+           : 
+          <Link to="/login">
+            <NavItem className="right">Login</NavItem>
+          </Link>
+        }
         <NavItem className="right">Aa</NavItem>
 
         <SearchWrapper>
@@ -87,6 +94,7 @@ const mapStateToProps = (state) => {
     page: state.getIn(['header', 'page']),
     totalPage: state.getIn(['header', 'totalPage']),
     mouseIn: state.getIn(['header', 'mouseIn']),
+    login: state.getIn(['login', 'login']),
   }
 }
 
@@ -112,7 +120,10 @@ const mapDispatchToProps = (dispatch) => {
       angle = angle !== '' ? parseInt(angle, 10) : 0;
       rotate_icon.style.transform = `rotate(${angle + 360}deg)`;
       dispatch(change_page((page+1) % totalPage));
-    }
+    },
+    handleLogout() {
+      dispatch(logout());
+    },
   }
 }
 
