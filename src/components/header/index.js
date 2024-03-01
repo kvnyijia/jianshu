@@ -80,7 +80,9 @@ const Header = (props) => {
         </SearchWrapper>
       </Nav>
       <Addition>
-        <NavButton className="writing">Writing</NavButton>
+        <Link to="/write">
+          <NavButton className="writing">Writing</NavButton>
+        </Link>
         <NavButton className="register">Register</NavButton>
       </Addition>
     </HeaderStyle>

@@ -5,6 +5,7 @@ import Header from './components/header';
 import Home from './pages/home'
 import Detail from "./pages/detail";
 import Login from "./pages/login";
+import Write from "./pages/write";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/"  element={<Home/>}/>
           <Route path="/login"  element={<Login/>}/>
           <Route path="/detail/:id"  element={<Detail/>}/>
+          <Route path="/write" element={<Write/>} />
         </Routes>
       </BrowserRouter>
     </Provider>
