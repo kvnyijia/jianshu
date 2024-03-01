@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDetail } from "./store";
 import { Content, DetailWrapper, Header } from "./style";
 
@@ -29,4 +29,12 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+const withRouter = (Component) =>{
+  const Wrapper = (props) =>{
+    const history = useNavigate();
+    return <Component history={history} {...props}/>
+  } 
+  return Wrapper;
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Detail));

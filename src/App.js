@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Header from './components/header';
 import Home from './pages/home'
-import Detail from "./pages/detail";
+import Detail from "./pages/detail/store/loadable";
 import Login from "./pages/login";
 import Write from "./pages/write";
 
